@@ -51,7 +51,7 @@ try {
     
     setTimeout(() => {
       if (data.user.rol === 'inventario') {
-        router.push('/dashboard/inventario');
+        router.push('/dashboard/recepcionista');
       } else if (data.user.rol === 'bodega') {
         router.push('/dashboard/bodega');
       } else {

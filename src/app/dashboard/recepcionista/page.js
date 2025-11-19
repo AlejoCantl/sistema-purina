@@ -2,11 +2,11 @@
 
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import styles from './bodega.module.css';
+import styles from './recepcionista.module.css';
 import { useAuth } from '@/app/context/AuthContext';
 import { ProtectedRoute } from '@/app/components/ProtectedRoute';
 
-function BodegaDashboardContent() {
+function RecepcionDashboardContent() {
   const router = useRouter();
   const { user, logout } = useAuth();
   
@@ -74,7 +74,7 @@ function BodegaDashboardContent() {
     <div className={styles.container}>
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <h1>Dashboard - Bodega</h1>
+          <h1>Dashboard - Recepcion</h1>
           <div className={styles.userInfo}>
             <span>Bienvenido, {user?.nombre}</span>
             <button onClick={handleLogout} className={styles.logoutButton}>
@@ -105,18 +105,9 @@ function BodegaDashboardContent() {
           </div>
 
           <div className={styles.statCard}>
-            <div className={styles.statIcon}>📥</div>
-            <div className={styles.statInfo}>
-              <h3>Entradas</h3>
-              <span className={styles.statNumber}>{estadisticas.entradasMes}</span>
-              <span className={styles.statLabel}>este mes</span>
-            </div>
-          </div>
-
-          <div className={styles.statCard}>
             <div className={styles.statIcon}>📤</div>
             <div className={styles.statInfo}>
-              <h3>Salidas</h3>
+              <h3>Salidas/Ventas</h3>
               <span className={styles.statNumber}>{estadisticas.salidasMes}</span>
               <span className={styles.statLabel}>este mes</span>
             </div>
@@ -126,48 +117,13 @@ function BodegaDashboardContent() {
           <div className={styles.actionsSection}>
             <h2>Acciones Rápidas</h2>
             <div className={styles.actionsGrid}>
-              <button className={styles.actionButton}>
-                <span className={styles.actionIcon}>📥</span>
-                <span>Registrar Entrada</span>
-              </button>
-              <button className={styles.actionButton}>
+              <button className={styles.actionButton} 
+              onClick={() => router.push('/dashboard/recepcionista/salidas')}>
                 <span className={styles.actionIcon}>📤</span>
-                <span>Registrar Salida</span>
+                <span>Registrar Salidas/Ventas</span>
               </button>
             </div>
           </div>
-
-        <div className={styles.alertsSection}>
-          <h2>Alertas de Stock ({alertas.length})</h2>
-          <div className={styles.alertsList}>
-            {alertas.length > 0 ? (
-              alertas.map((alerta) => (
-                <div key={alerta.id} className={styles.alertItem}>
-                  <span className={styles.alertIcon}>⚠️</span>
-                  <div className={styles.alertContent}>
-                    <h4>{alerta.nombre} - {alerta.marca}</h4>
-                    <p>
-                      Stock actual: <strong>{alerta.stock_actual} unidades</strong> | 
-                      Mínimo: {alerta.stock_minimo} | 
-                      Déficit: {alerta.deficit} unidades
-                    </p>
-                    <small>📍 Ubicación: {alerta.ubicacion_bodega || 'No asignada'}</small>
-                  </div>
-                  <button 
-                    className={styles.alertAction}
-                    onClick={() => router.push('/bodega/entradas')}
-                  >
-                    Reabastecer
-                  </button>
-                </div>
-              ))
-            ) : (
-              <div className={styles.noAlerts}>
-                <p>✅ No hay alertas de stock bajo</p>
-              </div>
-            )}
-          </div>
-        </div>
 
         <div className={styles.recentSection}>
           <div className={styles.sectionHeader}>
@@ -233,8 +189,8 @@ function BodegaDashboardContent() {
 
 export default function BodegaDashboard() {
   return (
-    <ProtectedRoute requiredRole="bodega">
-      <BodegaDashboardContent />
+    <ProtectedRoute requiredRole="inventario">
+      <RecepcionDashboardContent />
     </ProtectedRoute>
   );
 }

@@ -9,6 +9,8 @@ const dbConfig = {
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0,
+  connectTimeout: 10000,
+  enableKeepAlive: true,
 };
 
 let connection;
