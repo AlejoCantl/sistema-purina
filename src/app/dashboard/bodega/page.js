@@ -126,13 +126,10 @@ function BodegaDashboardContent() {
           <div className={styles.actionsSection}>
             <h2>Acciones Rápidas</h2>
             <div className={styles.actionsGrid}>
-              <button className={styles.actionButton}>
+              <button className={styles.actionButton} 
+               onClick={() => router.push('/dashboard/bodega/entradas')}>
                 <span className={styles.actionIcon}>📥</span>
                 <span>Registrar Entrada</span>
-              </button>
-              <button className={styles.actionButton}>
-                <span className={styles.actionIcon}>📤</span>
-                <span>Registrar Salida</span>
               </button>
             </div>
           </div>
@@ -155,7 +152,7 @@ function BodegaDashboardContent() {
                   </div>
                   <button 
                     className={styles.alertAction}
-                    onClick={() => router.push('/bodega/entradas')}
+                    onClick={() => router.push('/dashboard/bodega/entradas')}
                   >
                     Reabastecer
                   </button>
